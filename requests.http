@@ -1,0 +1,70 @@
+### Создание пользователя
+POST http://localhost:8080/api/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Анна Петрова",
+  "email": "anna.petrov{{$timestamp}}@example.com"
+}
+
+> {%
+    client.test("Пользователь создан", function () {
+        client.assert(response.status === 201, "Ожидался HTTP 201");
+        client.assert(response.body.id !== null, "Ответ не содержит идентификатор пользователя");
+    });
+    client.global.set("userId", response.body.id);
+%}
+
+### Создание статьи
+POST http://localhost:8080/api/articles
+Content-Type: application/json
+Accept: application/json
+
+{
+  "authorId": {{userId}},
+  "title": "Первая статья",
+  "slug": "first-article-{{$timestamp}}",
+  "content": "Текст статьи для проверки POST-запроса"
+}
+
+> {%
+    client.test("Статья создана", function () {
+        client.assert(response.status === 201, "Ожидался HTTP 201");
+        client.assert(response.body.authorId === Number(client.global.get("userId")),
+            "Идентификатор автора не совпадает");
+    });
+    client.global.set("articleId", response.body.id);
+%}
+
+### Создание комментария
+POST http://localhost:8080/api/comments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "articleId": {{articleId}},
+  "authorId": {{userId}},
+  "content": "Комментарий для проверки POST-запроса"
+}
+
+> {%
+    client.test("Комментарий создан", function () {
+        client.assert(response.status === 201, "Ожидался HTTP 201");
+        client.assert(response.body.articleId === Number(client.global.get("articleId")),
+            "Идентификатор статьи не совпадает");
+    });
+    client.global.set("commentId", response.body.id);
+%}
+
+### Проверка созданного пользователя
+GET http://localhost:8080/api/users/{{userId}}
+Accept: application/json
+
+### Проверка созданной статьи
+GET http://localhost:8080/api/articles/{{articleId}}
+Accept: application/json
+
+### Проверка комментариев статьи
+GET http://localhost:8080/api/comments/by-article/{{articleId}}
+Accept: application/json
