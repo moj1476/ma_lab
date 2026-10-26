@@ -68,3 +68,7 @@ Accept: application/json
 ### Проверка комментариев статьи
 GET http://localhost:8080/api/comments/by-article/{{articleId}}
 Accept: application/json
+
+### Пользователь и статьи через Feign
+GET http://localhost:8080/api/remote/users/{{userId}}/articles
+Accept: application/json

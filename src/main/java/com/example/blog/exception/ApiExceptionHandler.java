@@ -13,6 +13,11 @@ import java.util.Map;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
+    @ExceptionHandler(RemoteServiceException.class)
+    public ResponseEntity<Map<String, Object>> handleRemoteService(RemoteServiceException exception) {
+        return response(exception.getStatus(), exception.getMessage());
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleNotFound(ResourceNotFoundException exception) {
         return response(HttpStatus.NOT_FOUND, exception.getMessage());

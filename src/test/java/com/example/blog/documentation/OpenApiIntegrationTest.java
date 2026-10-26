@@ -46,7 +46,8 @@ class OpenApiIntegrationTest {
         }
         assertThat(paths.path("/api/articles/by-author/{authorId}").has("get")).isTrue();
         assertThat(paths.path("/api/comments/by-article/{articleId}").has("get")).isTrue();
-        assertThat(paths.size()).isEqualTo(8);
+        assertThat(paths.path("/api/remote/users/{userId}/articles").has("get")).isTrue();
+        assertThat(paths.size()).isEqualTo(9);
 
         JsonNode schemas = document.path("components").path("schemas");
         for (String entity : new String[]{"User", "Article", "Comment"}) {
