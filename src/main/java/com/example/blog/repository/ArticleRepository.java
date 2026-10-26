@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     Optional<Article> findBySlug(String slug);
-    List<Article> findAllByAuthorIdOrderByCreatedAtDesc(Long authorId);
+    List<Article> findAllByAuthorIdOrderByCreatedAtDescIdDesc(Long authorId);
     void deleteAllByAuthorId(Long authorId);
 }

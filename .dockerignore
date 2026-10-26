@@ -1,0 +1,10 @@
+.git
+.idea
+.mvn
+target
+tmp
+.env
+*.log
+README.md
+requests.http
+scripts

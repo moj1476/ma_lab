@@ -94,7 +94,7 @@ class ArticleServiceUnitTest {
     @DisplayName("Возвращает статьи автора")
     void returnsArticlesByAuthor() {
         given(userRepository.existsById(1L)).willReturn(true);
-        given(articleRepository.findAllByAuthorIdOrderByCreatedAtDesc(1L)).willReturn(List.of(article));
+        given(articleRepository.findAllByAuthorIdOrderByCreatedAtDescIdDesc(1L)).willReturn(List.of(article));
         given(articleMapper.map(article)).willReturn(articleDTO);
 
         assertThat(articleService.findByAuthorId(1L)).containsExactly(articleDTO);

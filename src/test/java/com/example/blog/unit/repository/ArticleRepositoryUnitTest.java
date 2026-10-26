@@ -61,7 +61,7 @@ class ArticleRepositoryUnitTest {
         Article first = articleRepository.saveAndFlush(article("Первая", "first"));
         Article second = articleRepository.saveAndFlush(article("Вторая", "second"));
 
-        List<Article> result = articleRepository.findAllByAuthorIdOrderByCreatedAtDesc(author.getId());
+        List<Article> result = articleRepository.findAllByAuthorIdOrderByCreatedAtDescIdDesc(author.getId());
 
         assertThat(result).hasSize(2);
         assertThat(result).extracting(Article::getId)
@@ -88,7 +88,7 @@ class ArticleRepositoryUnitTest {
         articleRepository.deleteAllByAuthorId(author.getId());
         articleRepository.flush();
 
-        assertThat(articleRepository.findAllByAuthorIdOrderByCreatedAtDesc(author.getId())).isEmpty();
+        assertThat(articleRepository.findAllByAuthorIdOrderByCreatedAtDescIdDesc(author.getId())).isEmpty();
     }
 
     private Article article(String title, String slug) {

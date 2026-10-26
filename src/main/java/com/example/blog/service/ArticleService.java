@@ -32,7 +32,7 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public List<ArticleDTO> findByAuthorId(Long authorId) {
         ensureUserExists(authorId);
-        return articleRepository.findAllByAuthorIdOrderByCreatedAtDesc(authorId)
+        return articleRepository.findAllByAuthorIdOrderByCreatedAtDescIdDesc(authorId)
                 .stream().map(articleMapper::map).toList();
     }
 
